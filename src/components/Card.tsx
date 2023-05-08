@@ -1,31 +1,22 @@
 import {
-  Box, useColorModeValue
+  Box,
+  forwardRef,
+  useColorModeValue,
+  BoxProps,
 } from '@chakra-ui/react';
-import theme from '../theme';
 
-interface Props {
-  children: React.ReactNode;
-}
-
-const Card = (props: Props) => {
-  
-  const { children } = props;
-
-  return (
+const Card = forwardRef<BoxProps, "div">((props, ref) => (
     <Box
-      minHeight={[350,400,250]}
-      maxWidth={[300,300, 250]}
       border={'4px solid'}
       borderColor={useColorModeValue('light.border', 'dark.border')}
       borderRadius={'10px'}
       backgroundColor={'light.boxbg'}
       margin={0}
       position={'relative'}
-      cursor={'pointer'}
-    >
-      {children}
-    </Box>
+      ref={ref}
+      {...props}
+    />
   )
-}
+)
 
 export default Card;

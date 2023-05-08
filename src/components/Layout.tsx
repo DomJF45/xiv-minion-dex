@@ -1,9 +1,16 @@
-import { useEffect, useState } from 'react'
-import { Box, Heading, Text, useColorMode, useColorModeValue, Button, SimpleGrid, Divider } from '@chakra-ui/react';
-import Home from './pages/Home';
+import { 
+  Box,
+  useColorModeValue
+} from "@chakra-ui/react"
 
-function App() {
- 
+interface Props {
+  children: React.ReactNode;
+}
+
+const Layout = (props: Props) => {
+  
+  const { children } = props;
+
   return (
     <Box
       minH={'100vh'}
@@ -18,10 +25,12 @@ function App() {
       transition={'ease-in-out'}
       transitionDuration={'200ms'}
       gap={10}
+      overscrollY={'none'}
+      overscrollX={'none'}
     >
-      <Home />
-    </Box>
+      {children}       
+    </Box> 
   )
 }
 
-export default App
+export default Layout;

@@ -1,5 +1,16 @@
 import { useState } from 'react';
-import { Box, Heading, Image, Text, useColorModeValue } from "@chakra-ui/react"
+import { 
+  Box, 
+  Heading, 
+  Image,
+  HStack,
+  Text, 
+  useColorModeValue 
+} from "@chakra-ui/react"
+import RaceTag from './RaceTag';
+import {
+  useNavigate
+} from 'react-router-dom';
 
 interface Props {
   minion: any;
@@ -9,6 +20,11 @@ const Minion = (props: Props) => {
 
   const { minion } = props;
   const text = useColorModeValue('dark.text', 'dark.text');
+  const navigate = useNavigate();
+
+  const handleNav = (route: string) => {
+    navigate(`/${route}`);
+  }
 
   if (minion === undefined) {
     return (
@@ -25,6 +41,7 @@ const Minion = (props: Props) => {
       alignItems={'start'}
       justifyContent={'center'}
       padding={5}
+      onClick={() => handleNav(minion.id.toString())}
     >
       <Heading fontSize={'xl'} color={text} width={'89%'}>{minion.name}</Heading>
       <Box
@@ -37,9 +54,16 @@ const Minion = (props: Props) => {
         <Image src={minion.image} width={['200px', '150px']} draggable={false} />    
       </Box>
       <Image src={minion.icon} width={[10, 5]} position={'absolute'} top={0.5} right={0.5} draggable={false} />
-      <Box width={'100%'} display={'flex'} justifyContent={'start'} color={text}>
-        <h1>#{minion.id}</h1>
-      </Box>
+      <HStack 
+        width={'100%'} 
+        display={'flex'} 
+        justifyContent={'space-between'} 
+        color={text}
+        marginTop={2}
+      >
+        <Text fontSize={'xl'}>#{minion.id}</Text>
+        <RaceTag race={minion.race.name} raceId={minion.race.id} />
+      </HStack>
     </Box>
   )
 }
