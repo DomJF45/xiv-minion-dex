@@ -34,13 +34,11 @@ const Minion = (props: Props) => {
         height={'100%'}
         alignItems={'center'}
       >
-
-        <Image src={minion.image} width={['200px', '150px']}/>    
+        <Image src={minion.image} width={['200px', '150px']} draggable={false} />    
       </Box>
-      <Image src={minion.icon} width={[10, 5]} position={'absolute'} top={0.5} right={0.5} />
-      <Box width={'100%'} display={'flex'} justifyContent={'start'}>
-
-        <h1 style={{textAlign: 'end'}}>#{minion.id}</h1>
+      <Image src={minion.icon} width={[10, 5]} position={'absolute'} top={0.5} right={0.5} draggable={false} />
+      <Box width={'100%'} display={'flex'} justifyContent={'start'} color={text}>
+        <h1>#{minion.id}</h1>
       </Box>
     </Box>
   )

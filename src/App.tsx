@@ -1,18 +1,23 @@
 import { useEffect, useState } from 'react'
-import { Box, Heading, useColorMode, useColorModeValue, Button, SimpleGrid, Divider } from '@chakra-ui/react';
+import { Box, Heading, Text, useColorMode, useColorModeValue, Button, SimpleGrid, Divider } from '@chakra-ui/react';
 import Card from './components/Card';
 import Minion from './components/Minion';
 
 function App() {
   
   const [data, setData] = useState();
+  const [load, setLoad] = useState(12);
   const { toggleColorMode } = useColorMode();
 
+  const handleLoad = () => {
+    setLoad((prev) => prev + 12);
+  }
+
   useEffect(() => {
-    fetch('https://ffxivcollect.com/api/minions?limit=12')
+    fetch(`https://ffxivcollect.com/api/minions?limit=${load}`)
       .then((res) => res.json())
       .then((actualData) => setData(actualData.results));
-  }, [])
+  }, [load])
 
   console.log(data);
 
@@ -31,9 +36,12 @@ function App() {
       transitionDuration={'200ms'}
       gap={10}
     >
-      <Heading
-        color={useColorModeValue('light.text', 'dark.text')}
-      >FFXIV MinionDex</Heading>
+      <Box>
+        <Heading
+          color={useColorModeValue('light.text', 'dark.text')}
+        >Minion-Dex</Heading>
+        <Text fontSize={'xl'} textAlign={'end'} >From Final Fantasy XIV</Text>
+      </Box>
       <Divider />
       {/* Components Here */}
       
@@ -46,7 +54,7 @@ function App() {
           ))
         }
       </SimpleGrid>
-      <Button fontSize={'xl'}>Load More</Button>
+      <Button fontSize={'xl'} onClick={handleLoad}>Load More</Button>
       <Button fontSize={'xl'} onClick={toggleColorMode}>Toggle</Button>
     </Box>
   )

@@ -21,6 +21,7 @@ const Card = (props: Props) => {
       backgroundColor={'light.boxbg'}
       margin={0}
       position={'relative'}
+      cursor={'pointer'}
     >
       {children}
     </Box>
