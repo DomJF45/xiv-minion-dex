@@ -40,7 +40,7 @@ function App() {
         <Heading
           color={useColorModeValue('light.text', 'dark.text')}
         >Minion-Dex</Heading>
-        <Text fontSize={'xl'} textAlign={'end'} >From Final Fantasy XIV</Text>
+        <Text fontSize={'xl'} textAlign={'end'} ><span style={{position: 'relative', paddingRight: '10px'}}>From Final Fantasy XIV <span style={{fontSize: '.7rem', position: 'absolute', top: 0, right: 0.5}}>&copy;</span></span></Text>
       </Box>
       <Divider />
       {/* Components Here */}
