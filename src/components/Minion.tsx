@@ -41,7 +41,7 @@ const Minion = (props: Props) => {
       alignItems={'start'}
       justifyContent={'center'}
       padding={5}
-      onClick={() => handleNav(minion.id.toString())}
+      onClick={() => handleNav(minion?.id?.toString())}
     >
       <Heading fontSize={'xl'} color={text} width={'89%'}>{minion.name}</Heading>
       <Box
@@ -51,9 +51,9 @@ const Minion = (props: Props) => {
         height={'100%'}
         alignItems={'center'}
       >
-        <Image src={minion.image} width={['200px', '150px']} draggable={false} />    
+        <Image src={minion?.image} width={['200px', '150px']} draggable={false} />    
       </Box>
-      <Image src={minion.icon} width={[10, 5]} position={'absolute'} top={0.5} right={0.5} draggable={false} />
+      <Image src={minion?.icon} width={[10, 5]} position={'absolute'} top={0.5} right={0.5} draggable={false} />
       <HStack 
         width={'100%'} 
         display={'flex'} 
@@ -61,8 +61,8 @@ const Minion = (props: Props) => {
         color={text}
         marginTop={2}
       >
-        <Text fontSize={'xl'}>#{minion.id}</Text>
-        <RaceTag race={minion.race.name} raceId={minion.race.id} />
+        <Text fontSize={'xl'}>#{minion?.id}</Text>
+        <RaceTag race={minion?.race?.name} raceId={minion?.race?.id} />
       </HStack>
     </Box>
   )

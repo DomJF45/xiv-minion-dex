@@ -14,21 +14,29 @@ const Layout = (props: Props) => {
   return (
     <Box
       minH={'100vh'}
-      padding={10}
+      padding={[5, 10]}
       display={'flex'}
       flexDir={'column'}
       alignItems={'center'}
       backgroundColor={useColorModeValue('light.bg', 'dark.bg')}
-      border={'4px solid'}
-      borderColor={useColorModeValue('light.border', 'dark.border')}
       overflowX={'hidden'}
       transition={'ease-in-out'}
       transitionDuration={'200ms'}
-      gap={10}
+      gap={5}
       overscrollY={'none'}
       overscrollX={'none'}
     >
-      {children}       
+      <Box
+        display={'flex'}
+        flexDir={'column'}
+        alignItems={'center'}
+        gap={5}
+        maxW={['95%', '1000px' , '1150px']}
+      >
+
+        {children}
+
+      </Box>
     </Box> 
   )
 }

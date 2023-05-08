@@ -13,10 +13,13 @@ import Layout from './components/Layout.tsx';
 import Home from './pages/Home.tsx';
 import MinionPage from './pages/MinionPage.tsx';
 import './index.css';
+import Nav from './components/Nav.tsx';
 
 const Root = () => {
   return (
     <>
+
+      <Nav />
       <Layout>
         <Outlet />
       </Layout>

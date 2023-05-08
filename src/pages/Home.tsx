@@ -11,8 +11,12 @@ import {
 import Minions from '../components/Minions';
 
 const Home = () => {
-  const [data, setData] = useState();
+  const [allData, setAllData] = useState([]);
+  const [data, setData] = useState([]);
+  const [current, setCurrent] = useState(0);
   const [load, setLoad] = useState(12);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
   const { toggleColorMode } = useColorMode();
 
   const handleLoad = () => {
@@ -20,25 +24,35 @@ const Home = () => {
   }
 
   useEffect(() => {
-    fetch(`https://ffxivcollect.com/api/minions?limit=${load}`)
-      .then((res) => res.json())
-      .then((actualData) => setData(actualData.results));
-  }, [load])
+    
+    try {
+      fetch(`https://ffxivcollect.com/api/minions?name_en_start=${search}`)
+        .then((res) => res.json())
+        .then((actualData) => {
+          setData(actualData.results.slice(current, current + 12))
+        })
+        .finally(() => setLoading(false));
+  
+    } catch (err) {
+      console.log(err);
+    }
+
+  }, [search, current]);
+
+  const handleSearch = () => {
+    setSearch('');
+  }
 
   console.log(data);
   return (
     <>
-      <Box>
-        <Heading
-          color={useColorModeValue('light.text', 'dark.text')}
-        >Minion-Dex</Heading>
-        <Text fontSize={'xl'} textAlign={'end'} ><span style={{position: 'relative', paddingRight: '10px'}}>From Final Fantasy XIV <span style={{fontSize: '.7rem', position: 'absolute', top: 0, right: 0.5}}>&copy;</span></span></Text>
-      </Box>
-      <Divider />
       {/* Components Here */}
-      <Minions minions={data} />
-      <Button fontSize={'xl'} onClick={handleLoad}>Load More</Button>
-      <Button fontSize={'xl'} onClick={toggleColorMode}>Toggle</Button>
+      { loading ?
+        (<Text>Loading</Text>)
+        :
+        (<Minions minions={data} search={search} setSearch={setSearch} handleSearch={handleSearch} />)
+      }
+      <Button fontSize={'xl'} onClick={() => setCurrent(current + 12)}>Load More</Button>
     </>
   )
 }

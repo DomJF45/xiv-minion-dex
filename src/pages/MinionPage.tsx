@@ -1,8 +1,10 @@
 import {
   Box,
   Divider,
-  HStack,
-  Heading
+  VStack,
+  Heading,
+  Text,
+  useColorModeValue
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import {
@@ -15,22 +17,26 @@ import StatChart from '../components/StatChart';
 const MinionPage = () => {
 
   const [minion, setMinion] = useState();
-  
+  const [verminion, setVerminion] = useState();
+  const [loading, setLoading] = useState(true);
+
   const { minionId } = useParams();
 
+  const text = useColorModeValue('#ffffff87', '#ffffff20');
+
   useEffect(() => {
-    fetch(`https://ffxivcollect.com/api/minions/${minionId}`)
-      .then((res) => res.json())
-      .then((actualData) => setMinion(actualData))
+    try {
+      fetch(`https://ffxivcollect.com/api/minions/${minionId}`)
+        .then((res) => res.json())
+        .then((actualData) => {
+          setMinion(actualData);
+          setVerminion(actualData.verminion)
+        })
+        .finally(() => setLoading(false))
+    } catch (err) {
+      console.log(err);
+    }
   }, [minionId])
-
-  console.log(minion);
-
-  if (!minion) {
-    return (
-      <Heading>Error</Heading>
-    )
-  }
 
   return (
     <Box 
@@ -51,18 +57,36 @@ const MinionPage = () => {
         alignItems={'center'}
         gap={5}
       >
-        <Card width={[300, 500]} height={[300, 500]} cursor={'default'}>
-          <Minion minion={minion} />
+        <Card width={[300, 400]} height={[300, 400]} cursor={'default'}>
+          
+          {loading ? 
+            (<Text>Loading...</Text>)
+            :
+            (<Minion minion={minion} />)
+          }
         </Card>
-        <Card width={[300, 500]} height={[300, 500]}>
+        <Card width={[300, 400]} height={[300, 400]}>
           {/* Add Stat Chart Here */}
-          <StatChart minion={minion} verminion={minion.verminion} />
+          {
+            loading ? 
+            (<Text>Loading...</Text>)
+            :
+            (<StatChart minion={minion} verminion={verminion} />)
+          }
         </Card>
       </Box>
-      <HStack width={'100%'} justifyContent={'start'}>
+      <VStack width={['100%', '800px']} alignItems={'start'}>
         <Heading fontSize={'xl'}>Description</Heading>
-      </HStack>
-      <Divider />
+
+        <Divider />
+        <Text 
+          fontSize={'xl'} 
+          backgroundColor={text} 
+          width={'100%'} 
+          padding={5}
+          borderRadius={'8px'}
+        >{minion?.enhanced_description}</Text>
+      </VStack>
     </Box>
   )
 }
