@@ -11,7 +11,6 @@ const Card = forwardRef<BoxProps, "div">((props, ref) => (
       borderColor={useColorModeValue('light.border', 'dark.border')}
       borderRadius={'10px'}
       backgroundColor={'light.boxbg'}
-      margin={0}
       position={'relative'}
       ref={ref}
       {...props}

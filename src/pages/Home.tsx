@@ -1,49 +1,38 @@
 import { useState, useEffect} from 'react';
 import {
-  Box,
-  Heading,
   Text,
-  Divider,
   Button,
-  useColorMode,
-  useColorModeValue
 } from '@chakra-ui/react';
 import Minions from '../components/Minions';
+import { searchMinion } from '../api/utils';
+import useDebounce from '../hooks/useDebounce';
 
 const Home = () => {
-  const [allData, setAllData] = useState([]);
   const [data, setData] = useState([]);
-  const [current, setCurrent] = useState(0);
   const [load, setLoad] = useState(12);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
-  const { toggleColorMode } = useColorMode();
 
-  const handleLoad = () => {
-    setLoad((prev) => prev + 12);
+  const debouncedSearch = useDebounce(search, 500);
+
+  const getAllMinions = async () => {
+    const res = await searchMinion(debouncedSearch, load);
+    setData(res);
   }
 
   useEffect(() => {
-    
     try {
-      fetch(`https://ffxivcollect.com/api/minions?name_en_start=${search}`)
-        .then((res) => res.json())
-        .then((actualData) => {
-          setData(actualData.results.slice(current, current + 12))
-        })
-        .finally(() => setLoading(false));
-  
+      getAllMinions().finally(() => setLoading(false));
     } catch (err) {
       console.log(err);
     }
-
-  }, [search, current]);
+  }, [debouncedSearch, load]);
 
   const handleSearch = () => {
     setSearch('');
   }
 
-  console.log(data);
+  console.log(data.length, load);
   return (
     <>
       {/* Components Here */}
@@ -52,7 +41,7 @@ const Home = () => {
         :
         (<Minions minions={data} search={search} setSearch={setSearch} handleSearch={handleSearch} />)
       }
-      <Button fontSize={'xl'} onClick={() => setCurrent(current + 12)}>Load More</Button>
+      <Button isLoading={loading} loadingText={'Loading'} isDisabled={load > data.length} fontSize={'xl'} onClick={() => setLoad((prev) => prev + 12)}>Load More</Button>
     </>
   )
 }

@@ -4,6 +4,9 @@ import {
   VStack,
   Heading,
   Text,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
   useColorModeValue
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
@@ -13,6 +16,8 @@ import {
 import Minion from '../components/Minion';
 import Card from '../components/Card';
 import StatChart from '../components/StatChart';
+import { BehaviorTags, MinionDesc, MinionHeader, MinionInfo } from '../components/MinionBio';
+import MinionInspect from '../components/MinionInspect';
 
 const MinionPage = () => {
 
@@ -22,7 +27,7 @@ const MinionPage = () => {
 
   const { minionId } = useParams();
 
-  const text = useColorModeValue('#ffffff87', '#ffffff20');
+  const text = useColorModeValue('light.text', 'dark.text');
 
   useEffect(() => {
     try {
@@ -45,48 +50,49 @@ const MinionPage = () => {
       width={'100%'}
       height={'100%'}
       justifyContent={'center'}
-      alignItems={'center'}
+      alignItems={'start'}
       gap={5}
     >
-      <Box 
-        display={'flex'}
-        flexDir={['column', 'row']}
-        height={'100%'}
-        width={'100%'}
-        justifyContent={'center'}
-        alignItems={'center'}
-        gap={5}
-      >
-        <Card width={[300, 400]} height={[300, 400]} cursor={'default'}>
-          
-          {loading ? 
-            (<Text>Loading...</Text>)
-            :
-            (<Minion minion={minion} />)
-          }
-        </Card>
-        <Card width={[300, 400]} height={[300, 400]}>
-          {/* Add Stat Chart Here */}
-          {
-            loading ? 
-            (<Text>Loading...</Text>)
-            :
-            (<StatChart minion={minion} verminion={verminion} />)
-          }
-        </Card>
-      </Box>
-      <VStack width={['100%', '800px']} alignItems={'start'}>
-        <Heading fontSize={'xl'}>Description</Heading>
+      <Breadcrumb fontSize={'xl'} color={text} separator={'>'} alignSelf={'start'}>
+        <BreadcrumbItem>
+          <BreadcrumbLink href='/'>Home</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbItem>
+          <BreadcrumbLink href='#'>{minion?.name}</BreadcrumbLink>
+        </BreadcrumbItem>
+      </Breadcrumb>
+      
 
-        <Divider />
-        <Text 
-          fontSize={'xl'} 
-          backgroundColor={text} 
-          width={'100%'} 
-          padding={5}
-          borderRadius={'8px'}
-        >{minion?.enhanced_description}</Text>
-      </VStack>
+        {loading ? 
+          (<Text>Loading..</Text>)
+          :
+          (<MinionInspect minion={minion} verminion={verminion} />)
+        }
+
+      <MinionInfo>
+        <MinionHeader>Description</MinionHeader>
+        <MinionDesc>{minion?.description}</MinionDesc>
+      </MinionInfo>
+
+      <MinionInfo>
+        <MinionHeader>Behavior</MinionHeader>
+        <BehaviorTags type={minion?.behavior?.id}>{minion?.behavior?.name}</BehaviorTags>
+      </MinionInfo>
+
+      <MinionInfo>
+        <MinionHeader>Source</MinionHeader>
+        <MinionDesc>{minion?.sources?.map((source) => <Text>{source?.text}</Text>)}</MinionDesc>
+      </MinionInfo>
+
+      <MinionInfo>
+        <MinionHeader>Journal</MinionHeader>
+        <MinionDesc>{minion?.enhanced_description}</MinionDesc>
+      </MinionInfo>
+
+      <MinionInfo>
+        <MinionHeader>Tooltip</MinionHeader>
+        <MinionDesc>{minion?.tooltip}</MinionDesc>
+      </MinionInfo>
     </Box>
   )
 }

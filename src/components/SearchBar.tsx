@@ -1,5 +1,7 @@
 import { HStack, InputGroup, Input, InputRightElement } from "@chakra-ui/react";
 import { AiOutlineSearch } from 'react-icons/ai';
+import debounce from 'lodash.debounce';
+import { useState, useCallback, ChangeEvent } from "react";
 
 interface Props {
   search: any;
@@ -10,7 +12,7 @@ interface Props {
 const SearchBar = (props: Props) => {
 
   const { search, setSearch, handleSearch } = props;
-
+  
   return (
     <InputGroup width={['100%', 250]} justifySelf={'start'} fontSize={'xl'}>
       <Input 
