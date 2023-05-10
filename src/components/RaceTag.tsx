@@ -1,7 +1,5 @@
-import {
-  Text
-} from '@chakra-ui/react';
 import { tagMap } from '../utils/tagColors';
+import { Tag } from './MinionBio';
 
 interface Props {
   race: string;
@@ -13,17 +11,11 @@ const RaceTag = (props: Props) => {
   const { race, raceId } = props;
 
   return (
-    <Text
-      width={'70px'}
+    <Tag
       backgroundColor={tagMap[raceId]}
-      height={'35px'}
-      justifyContent={'center'}
-      display={'flex'}
-      borderRadius={'8px'}
-      fontSize={'xl'}
     >
       {race}
-    </Text>
+    </Tag>
   )
 }
 

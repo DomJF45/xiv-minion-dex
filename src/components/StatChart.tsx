@@ -1,5 +1,4 @@
-import { Box, Heading, useColorModeValue } from "@chakra-ui/react"
-import { useState, useEffect } from "react";
+import { Box, Heading } from "@chakra-ui/react"
 import {
   ResponsiveContainer,
   RadarChart,
@@ -7,7 +6,8 @@ import {
   PolarAngleAxis,
   Radar,
   Legend,
-  PolarRadiusAxis
+  PolarRadiusAxis,
+  Tooltip
 } from 'recharts';
 import { tagMap } from '../utils/tagColors';
 
@@ -22,46 +22,37 @@ const StatChart = (props: Props) => {
 
   const max = 60;
 
-  const [data, setData] = useState([
+  const data = [
     {
       'stat': 'attack',
-      'value': verminion.attack,
+      'value': verminion?.attack,
       'fullMark': max
     },
     {
       'stat': 'defense',
-      'value': verminion.defense,
+      'value': verminion?.defense,
       'fullMark': max
     },
     {
       'stat': 'cost',
-      'value': verminion.cost,
+      'value': verminion?.cost,
       'fullMark': max
     }
-  ]);
+  ];
 
   const text = 'dark.text';
 
   return (
-    <Box
-      width={'100%'}
-      height={'100%'}
-      display={'flex'}
-      flexDir={'column'}
-      alignItems={'start'}
-      padding={5}
-    >
-      <Heading fontSize={'xl'} color={text} width={'89%'}>Verminion Stats</Heading>
-      <ResponsiveContainer width={'100%'} height={'100%'}>
-        <RadarChart data={data}>
-          <PolarGrid />
-          <PolarAngleAxis dataKey="stat" />
-          <PolarRadiusAxis angle={80} domain={[0, max]} />
-          <Radar name={minion?.name} dataKey={'value'} stroke={tagMap[minion.race.id]} fill={tagMap[minion.race.id]} fillOpacity={0.6} />
-          <Legend />
-        </RadarChart>
-      </ResponsiveContainer>
-    </Box>
+    <ResponsiveContainer width={'100%'} height={400}>
+      <RadarChart data={data}>
+        <PolarGrid />
+        <PolarAngleAxis dataKey="stat" />
+        <PolarRadiusAxis angle={80} domain={[0, max]} />
+        <Radar name={minion?.name} dataKey={'value'} stroke={tagMap[minion?.race?.id]} fill={tagMap[minion?.race?.id]} fillOpacity={0.6} />
+        <Legend />
+        <Tooltip />
+      </RadarChart>
+    </ResponsiveContainer>
   )
 }
 

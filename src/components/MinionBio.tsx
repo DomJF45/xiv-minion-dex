@@ -1,4 +1,11 @@
-import { Heading, VStack, Text, Box, useColorModeValue } from "@chakra-ui/react";
+import { 
+  Heading, 
+  VStack, 
+  Box,
+  BoxProps,
+  forwardRef, 
+} from "@chakra-ui/react";
+import { behaviorMap } from "../utils/tagColors";
 
 interface Props {
   children: React.ReactNode;
@@ -19,7 +26,7 @@ export const MinionInfo = (props: Props) => {
 
 export const MinionHeader = (props: Props) => {
   const { children } = props;
-  const color = useColorModeValue('light.text', 'dark.text');
+  const color = 'dark.text';
   return (
     <Box>
       <Heading fontSize={'xl'} color={color}>{children}</Heading>
@@ -33,45 +40,55 @@ export const MinionHeader = (props: Props) => {
 }
 
 export const MinionDesc = (props: Props) => {
-  const text = useColorModeValue('#ffffff87', '#ffffff20');
-  const color = useColorModeValue('light.text', 'dark.text');
+  const text = '#ffffff20';
   const {children} = props;
   return (
-    <Text
+    <Box
       fontSize={'xl'} 
       backgroundColor={text} 
       width={'100%'} 
       padding={5}
       borderRadius={'8px'}
-      color={color}
     >
       {children}
-    </Text>
+    </Box>
   )
 }
 
+export const Tag = forwardRef<BoxProps, "div">((props, ref) => (
+  <Box 
+    width={['55px', '80px']}
+    height={['30px', '35px']}
+    fontSize={['lg', '2xl']}
+    display={'flex'}
+    justifyContent={'center'}
+    borderRadius={'5px'}
+    color={'#ffffff99'}
+    ref={ref}
+    {...props}
+  />
+))
+
 export const BehaviorTags = (props: Props) => {
 
-  const { children, type } = props;
-
-  const behaviorMap: {[key: number]: string} = {
-    1: 'rgb(254, 206, 245)',
-    2: 'rgb(139, 156, 99)',
-    3: 'rgb(228, 158, 52)'
-  }
+  const { children, type } = props; 
 
   return (
-    <Text 
-      width={'90px'}
+    <Tag
       backgroundColor={type ? behaviorMap[type] : '#303030'}
-      height={'35px'}
-      justifyContent={'center'}
-      display={'flex'}
-      borderRadius={'8px'}
-      fontSize={'2xl'}
-      color={'#ffffff99'}
     >
       {children}
-    </Text>
+    </Tag>
+  )
+}
+
+export const PatchTag = (props: Props) => {
+  const { children } = props;
+  return (
+    <Tag
+      backgroundColor={'#ffffff20'}
+    >
+      {children}
+    </Tag>
   )
 }

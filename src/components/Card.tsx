@@ -7,12 +7,12 @@ import {
 
 const Card = forwardRef<BoxProps, "div">((props, ref) => (
     <Box
-      border={'4px solid'}
-      borderColor={useColorModeValue('light.border', 'dark.border')}
       borderRadius={'10px'}
       backgroundColor={'light.boxbg'}
       position={'relative'}
       ref={ref}
+      color={'dark.text'}
+      boxShadow={useColorModeValue('2px 2px 10px #30303050', '')}
       {...props}
     />
   )
