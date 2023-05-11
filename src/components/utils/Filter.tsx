@@ -36,22 +36,42 @@ const menuItems: iMenuItem[] = [
   }
 ]
 
+const raceMap: {[key: number]: string} = {
+  1: 'Critter',
+  2: 'Monster',
+  3: 'Poppet',
+  4: 'Gadget'
+}
+
 const Filter: React.FC<{
-  filter: number,
-  setFilter: (num: number) => void;
+  filter: number | null,
+  setFilter: (num: number | null) => void;
+  filterMinions: (num: number) => void;
 }> = ({
   filter,
-  setFilter
+  setFilter,
+  filterMinions
 }) => {
 
   const bgcolor = useColorModeValue('light.bg', 'dark.bg');
-  
+
+  const handleClick = (raceId: number) => {
+    if (filter === raceId) {
+      setFilter(null);
+    } else {
+      setFilter(raceId);
+      filterMinions(raceId);
+    }
+  }
+
   const iconPosMap: {[key: number]: number} = {
     1: 0,
     2: 24,
     3: 48,
     4: 72
   }
+
+  console.log(filter)
 
   return (
     <Menu>
@@ -67,7 +87,7 @@ const Filter: React.FC<{
           backgroundColor: (useColorModeValue('#ffffff50','#ffffff10'))
         }}
       >
-        Filter
+        { filter ? raceMap[filter] : 'Filter'}
       </MenuButton>
       <MenuList
         fontSize={['xl', '2xl']}
@@ -84,9 +104,11 @@ const Filter: React.FC<{
               backgroundColor={tagMap[item.id]}
               width={'100%'}
               marginBlock={3}
+              border={ filter === item.id ? `1px solid` : ''}
+              borderColor={ filter === item.id ? '#ffffff' : ''}
               borderRadius={'5px'}
               color={'#ffffff99'}
-              onClick={() => setFilter(item.id)}
+              onClick={() => handleClick(item.id)}
             >
               <Text
                 display={'flex'}
@@ -112,28 +134,3 @@ const Filter: React.FC<{
 }
 
 export default Filter;
-
-/*
-<>
-      <IconButton aria-label='filter-btn' ref={btnRef} icon={<IoFilterOutline />} onClick={onOpen}>
-        Filter
-      </IconButton>
-      <Drawer
-        isOpen={isOpen}
-        placement='right'
-        onClose={onClose}
-        finalFocusRef={btnRef}
-      >
-        <DrawerOverlay />
-        <DrawerContent
-          backgroundColor={useColorModeValue('light.bg', 'dark.bg')}
-        >
-          <DrawerCloseButton />
-          <DrawerHeader>Filter Minions</DrawerHeader>
-          <DrawerBody>
-            <Text>Testing</Text>
-          </DrawerBody>
-        </DrawerContent>
-      </Drawer>
-    </>
-*/

@@ -22,3 +22,9 @@ export async function getMinionById(id: string) {
     .then((res) => res.json());
   return data;
 }
+
+export async function filterMinionsByRaceId(raceId: number): Promise<iMinion[]> {
+  const data = await fetch(`https://ffxivcollect.com/api/minions`)
+    .then((res) => res.json());
+  return data.results;
+}
