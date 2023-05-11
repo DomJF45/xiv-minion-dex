@@ -1,4 +1,11 @@
-import { HStack, Heading, Box, useColorModeValue, VStack } from "@chakra-ui/react"
+import {
+  HStack,
+  Heading,
+  Box,
+  VStack,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react"
 import ThemeToggle from "./ThemeToggle";
 
 const Nav = () => {
@@ -23,7 +30,12 @@ const Nav = () => {
           <Heading
             color={useColorModeValue('light.text', 'dark.text')}
             fontSize={['xl', '3xl']}
-          >Minion-Dex</Heading>
+          >
+            Minion-Dex
+          </Heading>
+          <Text fontSize={'sm'} margin={0} padding={0} alignSelf={'start'}>
+            Final Fantasy XIV
+          </Text>
         </VStack>
         <ThemeToggle />
       </HStack>

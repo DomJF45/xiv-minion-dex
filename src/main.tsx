@@ -13,14 +13,18 @@ import Home from './pages/Home.tsx';
 import MinionPage from './pages/MinionPage.tsx';
 import './index.css';
 import Nav from './components/nav/Nav.tsx';
+import Footer from './components/footer/Footer.tsx';
+import ScrollToTop from './components/utils/ScrollToTop.tsx';
 
 export const Root: React.FC = () => {
   return (
     <>
       <Nav />
       <Layout>
+        <ScrollToTop />
         <Outlet />
       </Layout>
+      <Footer />
     </>
   )
 }
