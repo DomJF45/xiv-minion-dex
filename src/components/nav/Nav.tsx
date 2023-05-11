@@ -1,4 +1,4 @@
-import { HStack, Heading, Box, Text, Divider, useColorModeValue, VStack } from "@chakra-ui/react"
+import { HStack, Heading, Box, useColorModeValue, VStack } from "@chakra-ui/react"
 import ThemeToggle from "./ThemeToggle";
 
 const Nav = () => {

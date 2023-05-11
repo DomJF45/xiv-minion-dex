@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { 
   Box, 
   Heading, 
@@ -7,18 +6,14 @@ import {
   Text, 
   useColorModeValue 
 } from "@chakra-ui/react"
-import RaceTag from './RaceTag';
 import {
   useNavigate
 } from 'react-router-dom';
+import { RaceTag } from "./MinionTags";
+import { iMinion } from "../../interfaces/minion.interface";
 
-interface Props {
-  minion: any;
-}
+const MinionPreview: React.FC<{ minion: iMinion }> = ({ minion }) => {
 
-const Minion = (props: Props) => {
-
-  const { minion } = props;
   const text = useColorModeValue('dark.text', 'dark.text');
   const navigate = useNavigate();
 
@@ -53,7 +48,7 @@ const Minion = (props: Props) => {
       >
         <Image src={minion?.image} width={['200px', '150px']} draggable={false} />    
       </Box>
-      <Image src={minion?.icon} width={[10, 5]} position={'absolute'} top={0.5} right={0.5} draggable={false} />
+      <Image src={minion?.icon} width={[10, 5]} position={'absolute'} top={5} right={5} draggable={false} />
       <HStack 
         width={'100%'} 
         display={'flex'} 
@@ -62,10 +57,12 @@ const Minion = (props: Props) => {
         marginTop={2}
       >
         <Text fontSize={'xl'}>#{minion?.id}</Text>
-        <RaceTag race={minion?.race?.name} raceId={minion?.race?.id} />
+        <RaceTag raceId={minion?.race?.id}>
+          {minion?.race?.name}
+        </RaceTag>
       </HStack>
     </Box>
   )
 }
 
-export default Minion;
+export default MinionPreview;

@@ -5,28 +5,27 @@ import {
 } from "@chakra-ui/react";
 import { AnimatePresence, motion } from 'framer-motion';
 import Card from './Card';
-import Minion from './Minion';
-import SearchBar from "./SearchBar";
+import MinionPreview from './MinionPreview';
+import SearchBar from "../utils/SearchBar";
+import { iMinion } from "../../interfaces/minion.interface";
 
-interface Props {
-  minions: any;
-  search: any;
-  setSearch: any;
-  handleSearch: any;
-}
-
-const Minions = (props: Props) => {
-
-  const { minions, search, setSearch, handleSearch } = props;
-  
+const Minions: React.FC<{
+  minions: iMinion[];
+  search: string;
+  setSearch: (str: string) => void;
+}> = ({
+  minions,
+  search,
+  setSearch
+}) => {
   const container = {
     hidden: { opacity: 1, scale: 0 },
     visible: {
       opacity: 1,
       scale: 1,
       transition: {
-          delayChildren: 0.2,
-          staggerChildren: 0.1
+        delayChildren: 0.2,
+        staggerChildren: 0.1
       }
     }
   }
@@ -45,7 +44,7 @@ const Minions = (props: Props) => {
         width='100%'
         justifyContent={'space-between'}
       >
-        <SearchBar search={search} setSearch={setSearch} handleSearch={handleSearch} />
+        <SearchBar search={search} setSearch={setSearch} />
         <Text>Filter</Text>
       </HStack>
       <motion.div
@@ -55,7 +54,7 @@ const Minions = (props: Props) => {
       >
         <SimpleGrid columns={[1,1,4]} height={'100%'} spacing={10}>
           {minions && 
-            minions.map((minion: any) => (
+            minions.map((minion: iMinion) => (
               <Card 
                 key={minion.id} 
                 minHeight={[350,400,250]}
@@ -63,15 +62,19 @@ const Minions = (props: Props) => {
                 cursor={'pointer'}
                 as={motion.div}
                 variants={item}
+                transition={'ease-in-out'}
+                whileHover={{
+                  scale: 1.01,
+                  transition: { duration: .2 }
+                }}
               >
-                <Minion minion={minion} />
+                <MinionPreview minion={minion} />
               </Card>
             ))
           }
         </SimpleGrid>
       </motion.div>
     </AnimatePresence>
-
   )
 }
 

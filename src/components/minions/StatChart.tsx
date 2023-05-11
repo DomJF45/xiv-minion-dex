@@ -1,4 +1,3 @@
-import { Box, Heading } from "@chakra-ui/react"
 import {
   ResponsiveContainer,
   RadarChart,
@@ -9,16 +8,16 @@ import {
   PolarRadiusAxis,
   Tooltip
 } from 'recharts';
-import { tagMap } from '../utils/tagColors';
+import { tagMap } from '../../utils/tagColors';
+import { iMinion, iVerminion } from "../../interfaces/minion.interface";
 
-interface Props {
-  minion: any;
-  verminion: any;
-}
-
-const StatChart = (props: Props) => {
-
-  const { minion, verminion } = props;
+const StatChart: React.FC<{
+  minion: iMinion;
+  verminion: iVerminion;
+}> = ({
+  minion,
+  verminion
+}) => {
 
   const max = 60;
 
@@ -40,13 +39,13 @@ const StatChart = (props: Props) => {
     }
   ];
 
-  const text = 'dark.text';
+  const text = '#D5CBB2';
 
   return (
     <ResponsiveContainer width={'100%'} height={400}>
       <RadarChart data={data}>
         <PolarGrid />
-        <PolarAngleAxis dataKey="stat" />
+        <PolarAngleAxis dataKey="stat" stroke={text} />
         <PolarRadiusAxis angle={80} domain={[0, max]} />
         <Radar name={minion?.name} dataKey={'value'} stroke={tagMap[minion?.race?.id]} fill={tagMap[minion?.race?.id]} fillOpacity={0.6} />
         <Legend />

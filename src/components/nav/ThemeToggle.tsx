@@ -13,7 +13,6 @@ const ThemeToggle = () => {
 
   const iconSize = 30;
 
-    const iconColor = useColorModeValue('dark.text', 'dark.text');
   return (
     <AnimatePresence mode="wait" initial={false}>
       <motion.div

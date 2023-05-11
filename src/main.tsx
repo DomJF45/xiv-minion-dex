@@ -5,20 +5,18 @@ import {
   RouterProvider,
   Outlet
 } from 'react-router-dom';
-import App from './App.tsx';
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
 import theme from './theme.ts';
 import Fonts from './fonts.tsx';
-import Layout from './components/Layout.tsx';
+import Layout from './components/utils/Layout.tsx';
 import Home from './pages/Home.tsx';
 import MinionPage from './pages/MinionPage.tsx';
 import './index.css';
-import Nav from './components/Nav.tsx';
+import Nav from './components/nav/Nav.tsx';
 
-const Root = () => {
+export const Root: React.FC = () => {
   return (
     <>
-
       <Nav />
       <Layout>
         <Outlet />
