@@ -33,8 +33,8 @@ const Nav = () => {
           >
             Minion-Dex
           </Heading>
-          <Text fontSize={'sm'} margin={0} padding={0} alignSelf={'start'}>
-            Final Fantasy XIV
+          <Text fontSize={'sm'} margin={0} padding={0} alignSelf={'start'} color={useColorModeValue('light.text', 'dark.text')}>
+            Final Fantasy XIV <span style={{fontSize: '10px'}}>©</span>
           </Text>
         </VStack>
         <ThemeToggle />

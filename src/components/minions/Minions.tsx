@@ -1,6 +1,5 @@
 import {
   HStack,
-  Text,
   SimpleGrid,
 } from "@chakra-ui/react";
 import { AnimatePresence, motion } from 'framer-motion';
@@ -8,15 +7,20 @@ import Card from './Card';
 import MinionPreview from './MinionPreview';
 import SearchBar from "../utils/SearchBar";
 import { iMinion } from "../../interfaces/minion.interface";
+import Filter from "../utils/Filter";
 
 const Minions: React.FC<{
   minions: iMinion[];
   search: string;
+  filter: number | null;
   setSearch: (str: string) => void;
+  setFilter: (num: number) => void;
 }> = ({
   minions,
   search,
-  setSearch
+  filter,
+  setSearch,
+  setFilter
 }) => {
   const container = {
     hidden: { opacity: 1, scale: 0 },
@@ -45,7 +49,7 @@ const Minions: React.FC<{
         justifyContent={'space-between'}
       >
         <SearchBar search={search} setSearch={setSearch} />
-        <Text>Filter</Text>
+        <Filter filter={filter} setFilter={setFilter} />
       </HStack>
       <motion.div
         variants={container}
