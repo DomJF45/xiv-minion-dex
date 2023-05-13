@@ -46,7 +46,7 @@ const StatChart: React.FC<{
       <RadarChart data={data}>
         <PolarGrid />
         <PolarAngleAxis dataKey="stat" stroke={text} />
-        <PolarRadiusAxis angle={80} domain={[0, max]} />
+        <PolarRadiusAxis angle={40} domain={[0, max]} />
         <Radar name={minion?.name} dataKey={'value'} stroke={tagMap[minion?.race?.id]} fill={tagMap[minion?.race?.id]} fillOpacity={0.6} />
         <Legend />
         <Tooltip />

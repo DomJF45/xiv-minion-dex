@@ -65,7 +65,7 @@ const Home = () => {
           </>
         )
       }
-      <Button isLoading={loading} loadingText={'Loading'} isDisabled={load > data.length || load > filteredData .length} fontSize={'xl'} onClick={() => setLoad((prev) => prev + 12)}>Load More</Button>
+      <Button isLoading={loading} loadingText={'Loading'} isDisabled={filter ? load > filteredData.length : load > data.length} fontSize={'xl'} onClick={() => setLoad((prev) => prev + 12)}>Load More</Button>
     </>
   )
 }

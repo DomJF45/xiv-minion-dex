@@ -1,10 +1,10 @@
-import { 
-  Heading, 
-  VStack, 
+import {
+  Heading,
+  VStack,
   Box,
   BoxProps,
   forwardRef,
-  useColorModeValue 
+  useColorModeValue
 } from "@chakra-ui/react";
 
 export const Card = forwardRef<BoxProps, "div">((props, ref) => (
