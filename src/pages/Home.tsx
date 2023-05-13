@@ -28,7 +28,7 @@ const Home = () => {
     setSearch('');
     setLoading(true);
     setLoad(12);
-    const res = await filterMinionsByRaceId(raceId).finally(() => setLoading(false));
+    const res = await filterMinionsByRaceId().finally(() => setLoading(false));
 
     const filtered = res.filter((minion) => {
       return minion.race.id === raceId;
