@@ -20,11 +20,11 @@ const ThemeToggle = () => {
         key={useColorModeValue('light', 'dark')}
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.2 }}
+        transition={{ duration: 0.4 }}
       >
         <IconButton
           aria-label="Toggle theme"
-          background={'linear-gradient(0deg, #AB3738 5%, #AB3738, #AB3738, #AB3738, #E1A3A4)'}
+          background={'#AB3738'}
           color={'#E2B160'}
           icon={useColorModeValue(<BsFillMoonStarsFill size={iconSize - 10} />, <GiHeraldicSun size={iconSize} />)}
           onClick={toggleColorMode}

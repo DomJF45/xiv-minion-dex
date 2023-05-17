@@ -39,7 +39,7 @@ const Minions: React.FC<{
         initial={"hidden"} 
         animate={"visible"}
       >
-        <SimpleGrid columns={[1,1,4]} height={'100%'} spacing={10}>
+        <SimpleGrid columns={[1,1,4]} height={'100%'} spacingX={10} spacingY={8}>
           {minions && 
             minions.map((minion: iMinion) => (
               <Card 
